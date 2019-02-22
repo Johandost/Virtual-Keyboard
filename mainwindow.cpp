@@ -11,8 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setAttribute(Qt::WA_ShowWithoutActivating);
-    QPushButton *greekButtons[24];
-    for(int i = 0; i < 24; i++){
+    QPushButton *greekButtons[96];
+    for(int i = 0; i < 96; i++){
         QString buttonName = "pushButton_" + QString::number(i + 1);
         greekButtons[i] = MainWindow::findChild<QPushButton*>(buttonName);
         connect(greekButtons[i], SIGNAL(clicked()), this, SLOT(buttonClicked()));
@@ -27,10 +27,10 @@ void MainWindow::buttonClicked(){
     QPushButton *button = (QPushButton *) sender();
 
     //QString windowID = getCommandOutput("xdotool search --name \"Google Sheets\"");
-    QString windowID = "67109020";
+    QString windowID = "67110440";
     QTextStream out(stdout);
-    out << windowID;
-    QString command = "xdotool windowfocus " + windowID + " ; xdotool type --window " + windowID + " " + button->text();
+    out << button->text();
+    QString command = "xdotool windowfocus " + windowID + " ; xdotool type --window " + windowID + " \"" + button->text() + "\"";
     QByteArray commandArray = command.toLocal8Bit();
     const char *charCommand = commandArray.data();
     system(charCommand);
